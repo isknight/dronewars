@@ -8,15 +8,15 @@ Graph.drawGraph = function(points, x, y, width, height, graphics) {
     graphics.drawRect(x, y, width, height);
 
 
-    var worstMax = Graph._getMaxPoint(points, 0);
-    var averageMax = Graph._getMaxPoint(points, 1);
-    var bestMax = Graph._getMaxPoint(points, 2);
-    var temp = [];
+    let worstMax = Graph._getMaxPoint(points, 0);
+    let averageMax = Graph._getMaxPoint(points, 1);
+    let bestMax = Graph._getMaxPoint(points, 2);
+    let temp = [];
     temp[0] = [worstMax];
     temp[1] = [averageMax];
     temp[2] = [bestMax];
 
-    var max = Graph._getMaxPoint(temp, 0);
+    let max = Graph._getMaxPoint(temp, 0);
 
 
     Graph.graphLine(points, 0, 0xff0000, max, x, y, width, height, graphics);
@@ -27,11 +27,11 @@ Graph.drawGraph = function(points, x, y, width, height, graphics) {
 
 Graph.graphLine = function(points, index, color, max, x, y, width, height, graphics) {
 
-    var offset = width / points.length;
+    let offset = width / points.length;
 
 
-    var pointX = x;
-    var pointY = y;
+    let pointX = x;
+    let pointY = y;
 
 
     graphics.lineStyle(2, color, 1);

@@ -70,6 +70,9 @@ FitnessFunctions.compareGameTime = function(a, b) {
     return 0;
 };
 
+/**
+ * rewards winning
+ */
 FitnessFunctions.compareWins = function(a, b) {
     if (a.wins < b.wins)
         return 1;
@@ -82,6 +85,9 @@ FitnessFunctions.compareWins = function(a, b) {
     return 0;
 };
 
+/**
+ * rewards killing
+ */
 FitnessFunctions.compareKills = function(a, b) {
     if (a.kills < b.kills)
         return 1;

@@ -1,5 +1,5 @@
 /**
- *
+ * represents a very basic recurrent neural net
  */
 class Network {
     constructor(id) {

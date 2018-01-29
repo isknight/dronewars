@@ -1,3 +1,6 @@
+/**
+ * Basic container for all entities
+ */
 class World {
 
     constructor(width, height, game, graphics) {
@@ -17,7 +20,9 @@ class World {
         this.effects = [];
         this.pools = [];
         this._setupBackground();
-        this._initPools();
+        if (DroneConfig.ENABLE_HEALTH_POOLS) {
+            this._initPools();
+        }
     }
 
     _initPools() {
@@ -59,6 +64,20 @@ class World {
 
         this._renderEffects();
     }
+
+    run() {
+
+        let i = this.entities.length;
+        while (i--) {
+            this.entities[i].run();
+        }
+
+        i = this.pools.length;
+        while (i--) {
+            this.pools[i].run();
+        }
+    }
+
 
     _setupBackground() {
 
@@ -137,18 +156,7 @@ class World {
 
     }
 
-    run() {
 
-        let i = this.entities.length;
-        while (i--) {
-            this.entities[i].run();
-        }
-
-        i = this.pools.length;
-        while (i--) {
-            this.pools[i].run();
-        }
-    }
 
 }
 

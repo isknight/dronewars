@@ -1,5 +1,5 @@
 /**
- *
+ * Controls a fleet of N drones
  */
 class DroneCommander {
 

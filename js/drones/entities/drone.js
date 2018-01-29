@@ -38,7 +38,7 @@ class Drone {
     run() {
 
         // the neural nets don't need to provide vectoring information every single tick
-        if (this.world.gameTime % 3 == 0) {
+        if (this.world.gameTime % 3 === 0) {
             this._handleMovingNeuralNet();
         }
 
@@ -90,7 +90,7 @@ class Drone {
 
         for (let i in this.world.entities) {
             let e = this.world.entities[i];
-            if (e.id != this.entity.id) {
+            if (e.id !== this.entity.id) {
                 for (let k in e.drones) {
                     let drone = e.drones[k];
                     let distance = this._distanceFromDrone(drone);
@@ -107,6 +107,9 @@ class Drone {
             //reset
             experiment.simulation.extendAction();
             closestDrone.hp -= DroneConfig.DAMAGE;
+            if (closestDrone.hp <= 0) {
+                this.entity.kills++;
+            }
             this.entity.score++;
         }
     }
@@ -129,7 +132,7 @@ class Drone {
         let i = this.world.entities.length;
         while (i--) {
             let entity = this.world.entities[i];
-            if (entity.id != me.entity.id) {
+            if (entity.id !== me.entity.id) {
                 enemyVectorCount++;
                 let enemy = me._droneVision(entity);
                 enemyVectorTotals[0] += enemy[0];
@@ -152,7 +155,7 @@ class Drone {
         let mirrorScalar = 1;
 
         // to half the search space, we mirror the opposite entity so that they always think they're on the same side
-        if (this.type == 'r') {
+        if (this.type === 'r') {
             mirrorScalar = -1;
         }
 

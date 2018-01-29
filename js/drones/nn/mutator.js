@@ -1,3 +1,6 @@
+/**
+ * For mutating neural nets
+ */
 class Mutator {
 
 

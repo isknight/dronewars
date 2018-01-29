@@ -78,6 +78,8 @@ class DronesSimulation {
      */
     _cull() {
         this._sortEntitiesForCulling();
+        console.log('best=' + this.entities[0].kills)
+        console.log('worst=' + this.entities[this.entities.length - 1].kills);
         this._handleCullingReporting();
         this._repopulateAfterCulling();
         this._resetSimulation();
@@ -144,19 +146,14 @@ class DronesSimulation {
 
             if (this.facedSoFar >= DroneConfig.ENTITY_NUMBER_OF_OPPONENTS_TO_FACE) {
                 this.currentDroneIndex1++;
-                // this.currentDroneIndex2 = 0;
                 this.facedSoFar = 0;
             }
 
             if (this.currentDroneIndex1 >= DroneConfig.ENTITY_POPULATION_COUNT) {
-                // this.state = SADSimulation.STATE_CULLING;
                 this.currentDroneIndex1 = 0;
-                //this.currentDroneIndex2 = 0;
                 this.generation++;
                 this.state = DronesSimulation.STATE_CULLING;
                 return null;
-
-                //    return null;
             }
 
             if (this.currentDroneIndex1 !== this.currentDroneIndex2) {
@@ -242,13 +239,13 @@ class DronesSimulation {
         switch (DroneConfig.FITNESS_MEASUREMENT) {
             case FitnessFunctions.TYPE_SCORE:
                 while (i--) {
-                    total += this.entities[i].wins;
-                    if (this.entities[i].wins > best) {
+                    total += this.entities[i].score;
+                    if (this.entities[i].score > best) {
                         best = this.entities[i].wins;
                     }
 
                     if (this.entities[i].score < worst) {
-                        worst = this.entities[i].wins;
+                        worst = this.entities[i].score;
                     }
                 }
                 break;
@@ -260,8 +257,22 @@ class DronesSimulation {
                         best = this.entities[i].gameTime;
                     }
 
-                    if (this.entities[i].score < worst) {
+                    if (this.entities[i].gameTime < worst) {
                         worst = this.entities[i].gameTime;
+                    }
+                }
+                break;
+
+            case FitnessFunctions.TYPE_KILLS:
+                console.log('type kills');
+                while (i--) {
+                    total += this.entities[i].kills;
+                    if (this.entities[i].kills > best) {
+                        best = this.entities[i].kills;
+                    }
+
+                    if (this.entities[i].kills < worst) {
+                        worst = this.entities[i].kills;
                     }
                 }
                 break;
@@ -273,14 +284,13 @@ class DronesSimulation {
         this.reports.push([worst, average, best]);
 
 
-        let output = this.generation + ',' + this.entities[0].id + ',' + average + ',' + this.entities[0].wins;
+        let output = this.generation + ',' + this.entities[0].id + ',' + average + ',' + best;
 
         console.log(output);
 
         if (this.reports.length > 50) {
             let tempReports = [];
 
-            //let i = this.reports.length;
             for (let i in this.reports) {
                 if (i % 2 === 1) {
                     tempReports.push(this.reports[i]);
@@ -288,7 +298,6 @@ class DronesSimulation {
             }
             this.reports = tempReports;
         }
-
     }
 
 
@@ -303,26 +312,35 @@ class DronesSimulation {
 
         let saveList = this.entities.slice(0, saveSize);
 
+        //first the winner gets a clone
+        saveList.push(this._cloneAndMutate(saveList[0]));
+
 
         while (saveList.length < DroneConfig.ENTITY_POPULATION_COUNT) {
             let randomIndex = Util.randomInteger(0, saveList.length - 1);
             let randomEntity = saveList[randomIndex];
             this.entityCounter++;
-            let e1 = new DroneCommander(this.entityCounter, 50, 150, this.world, 'b');
-            let network = randomEntity.network;
-            network = Object.clone(network, true);
-            e1.network = network;
-            let m = new Mutator();
 
-            m.mutateNetwork(e1.network);
-            saveList.push(e1);
+            saveList.push(this._cloneAndMutate(randomEntity));
         }
 
         this.entities = saveList;
     }
 
+    _cloneAndMutate(entity) {
+        let e1 = new DroneCommander(this.entityCounter, 50, 150, this.world, 'b');
+        let network = entity.network;
+        network = Object.clone(network, true);
+        e1.network = network;
+        let m = new Mutator();
+
+        m.mutateNetwork(e1.network);
+
+        return e1;
+    }
+
     /**
-     *
+     * Resets the simulation for the next two Drone Commanders
      * @private
      */
     _resetSimulation() {
@@ -333,6 +351,7 @@ class DronesSimulation {
             this.entities[i].gameTime = 0;
             this.entities[i].entityScore = 0;
             this.entities[i].wins = 0;
+            this.entities[i].kills = 0;
         }
 
         this.state = DronesSimulation.STATE_IDLE;

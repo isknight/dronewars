@@ -1,3 +1,6 @@
+/**
+ * Represents a heal pool for the drones
+ */
 class Pool {
 
 

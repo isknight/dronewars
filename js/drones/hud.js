@@ -20,12 +20,15 @@ class Hud {
         });
         this.vs = game.make.text(this.x + 10, this.y + 50, 'vs:', {font: "18px Arial", fill: "#00ff00"});
         this.fps = game.make.text(this.x + 10, this.y + 90, 'fps:', {font: "18px Arial", fill: "#00ff00"});
-        this.speed = game.make.text(this.x + 10, this.y + 130, 'speed:', {font: "12px Arial", fill: "#00ff00"});
+        this.speed = game.make.text(this.x + 10, this.y + 130, 'speed:', {font: "18px Arial", fill: "#00ff00"});
 
         this.turbo = game.make.text(this.x - 750, this.y + 250, '', {font: "42px Arial", fill: "#ff0000"});
 
         this.victory = game.make.text(this.x - 550, this.y + 250, '', {font: "18px Arial", fill: "#ffffff"});
-        this.neurons = game.make.text(this.x + 10, this.y + 160, '', {font: "18px Arial", fill: "#ffffff"});
+        this.neurons = game.make.text(this.x + 10, this.y + 160, '', {font: "14px Arial", fill: "#ffffff"});
+
+        this.instructions = game.make.text(this.x + 10, this.y + 200, 'Press up to train, down to resume playing', {font: "14px Arial", fill: "#ffffff"});
+
 
 
         this.textGroup.add(this.generation);
@@ -35,6 +38,7 @@ class Hud {
         this.textGroup.add(this.turbo);
         this.textGroup.add(this.victory);
         this.textGroup.add(this.neurons);
+        this.textGroup.add(this.instructions);
     }
 
 
@@ -57,7 +61,7 @@ class Hud {
                 this.turbo.text = "training, rendering disabled";
             } else {
                 this.turbo.text = "";
-                //TODO fix this crap
+                //TODO fix this - it's valuable but can have a null issue in a few situations. This if statement is also from hell
                 if (first && second) {
                     // if (first && second && second.drones && first.drones && (first.drones.length == 0 && second.drones.length >= DroneConfig.ENTITY_DRONE_COUNT) || (second.drones.length == 0 && first.drones.length >= DroneConfig.ENTITY_DRONE_COUNT)) {
                     //     this.victory.text = 'flawess victory!';
