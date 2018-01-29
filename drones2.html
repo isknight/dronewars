@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript" src="./bower_components/phaser/build/phaser.js"></script>
+    <script type="text/javascript" src="./bower_components/clone.js/clone.js"></script>
+    <script src="./bower_components/simple-uuid/uuid.js"></script>
+
+    <script type="text/javascript" src="./js/drones/nn/connection.js"></script>
+    <script type="text/javascript" src="./js/drones/nn/neuron.js"></script>
+    <script type="text/javascript" src="./js/drones/nn/network.js"></script>
+    <script type="text/javascript" src="./js/drones/nn/mutator.js"></script>
+
+    <script type="text/javascript" src="./js/drones/visuals/visual_synapse.js"></script>
+    <script type="text/javascript" src="./js/drones/experiment.js"></script>
+    <script type="text/javascript" src="./js/drones/util.js"></script>
+
+    <script type="text/javascript" src="./js/drones/fitness_functions.js"></script>
+    <script type="text/javascript" src="./js/drones/drone_config.js"></script>
+    <script type="text/javascript" src="./js/drones/drones_simulation.js"></script>
+    <script type="text/javascript" src="./js/drones/entities/drone.js"></script>
+    <script type="text/javascript" src="./js/drones/entities/pool.js"></script>
+    <script type="text/javascript" src="./js/drones/entities/drone_commander.js"></script>
+    <script type="text/javascript" src="./js/drones/world.js"></script>
+
+    <script type="text/javascript" src="./js/drones/visuals/visual_explosion.js"></script>
+    <script type="text/javascript" src="js/drones/visuals/visual_fitness_graph.js"></script>
+    <script type="text/javascript" src="js/drones/visuals/visual_weapon1.js"></script>
+    <script type="text/javascript" src="js/drones/visuals/visual_weapon2.js"></script>
+    <script type="text/javascript" src="js/drones/visuals/visual_nn.js"></script>
+    <script type="text/javascript" src="./js/drones/hud.js"></script>
+
+
+</head>
+<body bgcolor="#000000">
+
+</body>
+
+<script type="text/javascript">
+
+    let game = new Phaser.Game(1200, 600, Phaser.CANVAS, 'entities', {
+        preload: preload,
+        create: create,
+        update: update
+    });
+
+    function preload() {
+
+    }
+
+
+    let upKey;
+    let downKey;
+
+    function create() {
+        game.time.advancedTiming = true;
+        let width = 600;
+        let height = 600;
+        let graphics = game.add.graphics(0, 0);
+
+        //couple evil global variables
+        MAX_SPEED = 1000;
+        experiment = new Experiment(Experiment.SIMULATION_DRONES, width, height, graphics);
+        speed = 1;
+
+        upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+        downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+
+    }
+
+    /**
+     * Called at 60 frames per second by the phaser rendering engine
+     */
+    function update() {
+        if (upKey.isDown) {
+            speed += MAX_SPEED;
+        }
+
+        if (downKey.isDown) {
+            speed -= MAX_SPEED;
+        }
+
+        if (speed < 1) {
+            speed = 1;
+        }
+
+        if (speed > MAX_SPEED) {
+            speed = MAX_SPEED;
+        }
+
+        for (let i = 0; i < speed; i++) {
+            experiment.simulation.speed = speed;
+            experiment.run();
+            if (speed < 5) {
+                experiment.render();
+            }
+            experiment.postRender();
+        }
+    }
+
+</script>
+</html>

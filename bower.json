@@ -1,0 +1,25 @@
+{
+  "name": "legion",
+  "homepage": "https://github.com/isknight/dronewars",
+  "authors": [
+    "Israel Knight <israel.s.knight@gmail.com>"
+  ],
+  "description": "neural net experiments",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "uuid": "^2.0.2",
+    "clone.js": "clone#^0.1.0",
+    "phaser": "^2.6.2",
+    "node-uuid": "^3.0.0",
+    "simple-uuid": "^1.0.1"
+  }
+}
