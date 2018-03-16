@@ -19,7 +19,5 @@
     "uuid": "^2.0.2",
     "clone.js": "clone#^0.1.0",
     "phaser": "^2.6.2",
-    "node-uuid": "^3.0.0",
-    "simple-uuid": "^1.0.1"
   }
 }
