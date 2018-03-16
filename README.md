@@ -22,7 +22,7 @@ You should see this:
 
 
 # Neural Net visualization
-![alt text](https://github.com/isknight/dronewars/raw/master/screenshots/neural_net.png "I'm sorry, Dave")
+![alt text](https://github.com/isknight/dronewars/raw/master/screenshots/neural_net.png =250x "I'm sorry, Dave")
 
 - The nodes on the left are the input neurons
 - The nodes on the right are the output neurons
