@@ -68,7 +68,7 @@ class Pool {
     _handleHealing() {
         this.dronesHealing = [];
 
-        let maxDistance = DroneConfig.FIRING_DISTANCE;
+        let maxDistance = DroneConfig.DRONE_FIRING_DISTANCE;
 
         this.closestDrone = null;
 
@@ -80,7 +80,7 @@ class Pool {
                     let distance = this._distanceFromDrone(drone);
 
                     if (distance < maxDistance) {
-                        if (drone.hp < DroneConfig.MAX_HP && this.hpReserve >= 0) {
+                        if (drone.hp < DroneConfig.DRONE_MAX_HP && this.hpReserve >= 0) {
 
                             drone.hp += 1;
                             this.hpReserve--;

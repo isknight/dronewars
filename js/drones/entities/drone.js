@@ -24,8 +24,8 @@ class Drone {
                 break;
         }
 
-        this.x = Util.randomInteger(entity.x + DroneConfig.MAX_SPACING, entity.x - DroneConfig.MAX_SPACING);
-        this.y = Util.randomInteger(entity.y + DroneConfig.MAX_SPACING, entity.y - DroneConfig.MAX_SPACING);
+        this.x = Util.randomInteger(entity.x + DroneConfig.DRONE_MAX_SPACING, entity.x - DroneConfig.DRONE_MAX_SPACING);
+        this.y = Util.randomInteger(entity.y + DroneConfig.DRONE_MAX_SPACING, entity.y - DroneConfig.DRONE_MAX_SPACING);
         this.xVelocity = 0;
         this.yVelocity = 0;
 
@@ -80,7 +80,7 @@ class Drone {
     }
 
     _handleFiring() {
-        let maxDistance = DroneConfig.FIRING_DISTANCE;
+        let maxDistance = DroneConfig.DRONE_FIRING_DISTANCE;
         //TODO loop through enemy drones
         let closestDrone = null;
         let closestDistance = 999;
@@ -105,7 +105,7 @@ class Drone {
         if (this.closestDrone) {
             //reset
             experiment.simulation.extendAction();
-            closestDrone.hp -= DroneConfig.DAMAGE;
+            closestDrone.hp -= DroneConfig.DRONE_DAMAGE;
             if (closestDrone.hp <= 0) {
                 this.entity.kills++;
             }
@@ -178,20 +178,20 @@ class Drone {
         let yNegative = (results[1] <= -.01);
 
         if (xPositive) {
-            this.xVelocity += DroneConfig.V_CHANGE * mirrorScalar;
+            this.xVelocity += DroneConfig.DRONE_ACCELERATION * mirrorScalar;
         }
 
         if (xNegative) {
-            this.xVelocity -= DroneConfig.V_CHANGE * mirrorScalar;
+            this.xVelocity -= DroneConfig.DRONE_ACCELERATION * mirrorScalar;
         }
 
 
         if (yPositive) {
-            this.yVelocity += DroneConfig.V_CHANGE;
+            this.yVelocity += DroneConfig.DRONE_ACCELERATION;
         }
 
         if (yNegative) {
-            this.yVelocity -= DroneConfig.V_CHANGE;
+            this.yVelocity -= DroneConfig.DRONE_ACCELERATION;
         }
     }
 
