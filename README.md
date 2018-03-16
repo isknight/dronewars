@@ -50,7 +50,20 @@ js/drone_config.js contains simulation configuration options.
 <img src="https://github.com/isknight/dronewars/raw/master/screenshots/neural_net.png" alt="Drawing" style="width: 200px;" alt="I'm sorry Dave, I'm afraid I can't do that." />
 
 - The nodes on the left are the input neurons
+```
+        //inputs
+        let inputs = [
+            friendlyVector[0] * mirrorScalar, // a directional vector giving vision on friendly drones
+            friendlyVector[1],
+            enemyVector[0] * mirrorScalar,    // a directional vector giving vision on enemy units
+            enemyVector[1],
+            droneHPInput,                     // health of the given drone
+            droneXInput * mirrorScalar,       // X/Y position of the given drone
+            droneYInput
+        ];
+```
 - The nodes on the right are the output neurons
+    - Controls X/Y thrust
 - the floaty ones in the middle are of course the hidden neuron
 
 Using a hyperbolic activation, purple represents a negative signal between -1 and 0, while orange represents a positive signal between 0 and 1. The size of the arc is in relation to the strength of the signal.

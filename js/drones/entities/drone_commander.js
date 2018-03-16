@@ -75,6 +75,9 @@ class DroneCommander {
 
     }
 
+    /**
+     * @deprecated
+     */
     kill() {
         let i = this.drones.length;
         while (i--) {
