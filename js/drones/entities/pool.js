@@ -45,6 +45,11 @@ class Pool {
         this._renderHealing(graphics);
     }
 
+    /**
+     *
+     * @param graphics
+     * @private
+     */
     _renderHealing(graphics) {
 
         let i = this.dronesHealing.length;
@@ -56,6 +61,10 @@ class Pool {
 
     }
 
+    /**
+     *
+     * @private
+     */
     _handleHealing() {
         this.dronesHealing = [];
 
@@ -85,7 +94,6 @@ class Pool {
     }
 
     _distanceFromDrone(drone) {
-        //x1, y1, x2, y2
 
         let x1 = this.x;
         let y1 = this.y;
@@ -100,6 +108,9 @@ class Pool {
     }
 
 
+    /**
+     * @deprecated
+     */
     kill() {
     }
 

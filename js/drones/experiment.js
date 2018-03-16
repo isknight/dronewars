@@ -1,5 +1,5 @@
 /**
- * Container for experiments
+ * Container for simulations
  */
 class Experiment {
 
@@ -31,7 +31,9 @@ class Experiment {
     }
 
 
-
+    /**
+     * Renders
+     */
     postRender() {
         Graph.drawGraph(this.simulation.reports, 950, 450, 200, 100, this.simulation.world.graphics);
         this.hud.render();

@@ -1,3 +1,6 @@
+/**
+ * Represents a Neuron (input, hidden, and output)
+ */
 class Neuron {
     constructor(type, generation) {
         if (!generation) {
@@ -24,7 +27,6 @@ Neuron.TYPE_RANDOM = 4;
 Neuron.OUTPUT_TYPES = [
     Neuron.TYPE_HYPERBOLIC,
     Neuron.TYPE_SIN,
-    Neuron.TYPE_RAW,
-    Neuron.TYPE_RANDOM
+    Neuron.TYPE_RAW
 ];
 

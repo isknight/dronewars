@@ -11,7 +11,6 @@ class Drone {
 
         this.hp = DroneConfig.DRONE_MAX_HP;
         this.world = world;
-        //console.log(world);
 
         this.type = type;
         this.entity = entity;
